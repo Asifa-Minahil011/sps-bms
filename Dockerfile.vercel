@@ -1,9 +1,9 @@
-FROM php:8.3-apache
+FROM php:8.3-cli
 
 RUN docker-php-ext-install mysqli
 
-COPY . /var/www/html/
+WORKDIR /app
 
-RUN chown -R www-data:www-data /var/www/html
+COPY . .
 
-EXPOSE 80
+CMD ["sh", "-c", "php -S 0.0.0.0:${PORT:-3000} -t /app"]
